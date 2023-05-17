@@ -1,0 +1,50 @@
+﻿Assignment No: 2C 
+app.module.ts 
+import { NgModule } from '@angular/core'; 
+import { BrowserModule } from '@angular/platform-browser'; import { AppRoutingModule } from './app-routing.module'; import { AppComponent } from './app.component'; 
+import { FormsModule } from '@angular/forms'; 
+@NgModule({ 
+declarations: [ 
+AppComponent 
+], 
+imports: [ 
+BrowserModule, 
+AppRoutingModule, 
+FormsModule, 
+], 
+providers: [], 
+bootstrap: [AppComponent] 
+}) 
+export class AppModule { } 
+app.component.html 
+<h1>Simple Form</h1> 
+<form #simpleForm = "ngForm" (ngSubmit) = 
+"getValues(simpleForm.value)"> 
+<input type ="text" ngModel name = "user" placeholder = "Enter Name"> <br> <br> 
+<input type ="text" ngModel name = "age" placeholder = "Enter age"> <br> <br> 
+<input type ="text" ngModel name = "city" placeholder = "Enter city"> <br> <br> 
+<button>Get user value</button> 
+<h1>user name is {{user}}</h1> 
+<h1>user age is {{age}}</h1> 
+<h1>user city is {{city}}</h1> 
+</form> 
+app.component.ts 
+import { Component } from '@angular/core'; 
+@Component({
+selector: 'app-root', 
+templateUrl: './app.component.html', 
+styleUrls: ['./app.component.css'] 
+}) 
+export class AppComponent { 
+title = 'AngProj1'; 
+user =null; 
+age= null; 
+city =null; 
+getValues(val:any) 
+{ this.user= val.user; 
+this.age= val.age; 
+this.city = val.city 
+console.log(val); 
+} 
+} 
+OUTPUT :

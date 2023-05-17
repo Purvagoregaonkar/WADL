@@ -1,0 +1,186 @@
+﻿Name: Goregaonkar Purva Pradip 
+Roll No: 33313 
+Title: JavaScript AJAX Implementation. 
+Assignment No. 1-B 
+-------------------------------------------------------------------------------------------------------------------------- - HTML Code: 
+<!doctype html> 
+<html lang="en"> 
+<head> 
+<title>AJAX</title> 
+<meta charset="utf-8"> 
+<meta name="viewport" 
+content="width=device-width, initial-scale=1, shrink-to-fit=no"> <link 
+href="https://cdn.jsdelivr.net/npm/bootstrap@ 5.2.1/dist/css/bootstrap.min.css" 
+rel="stylesheet" integrity="sha384- iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8t YaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous"> 
+<script 
+src="https://ajax.googleapis.com/ajax/libs/jqu e ry/3.6.3/jquery.min.js"></script> 
+<script src="https://code.jquery.com/jquery 3.6.3.js" integrity="sha256- 
+nQLuAZGRRcILA+6dMBOvcRh5Pe310sBp a nc6+QBmyVM=" 
+crossorigin="anonymous"></script > <link 
+href="https://cdn.jsdelivr.net/npm/bootstrap@ 5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"> 
+<title>JavaScript AJAX</title> 
+<script 
+src="https://cdn.jsdelivr.net/npm/bootstrap@5 . 3.0- 
+alpha1/dist/js/bootstrap.bundle.min.js"></scri p t> 
+<style> 
+h2{ 
+text-shadow: 2px 2px; 
+} 
+form{ 
+width:30%; 
+margin: 5% auto; 
+box-shadow: 25px 25px ; 
+} 
+input{ 
+margin: 1%; 
+} 
+#addNumberForm{ 
+background-color: aliceblue; 
+} 
+</style> 
+</head> 
+<body> 
+<div class="container my-4"> 
+<main id="output" class=" 
+text-primary-emphasis p-4 rounded mb-4 w-50 mx-auto" style="font-size: xx-large; font weight: bold; text-indent: 30%;">User Details </main> 
+<form id="addNumberForm" 
+class="p-4 w-50 mx-auto" style="box 
+shadow: 5px 5px 5px 5px #D3D3D3; border radius: 10px;"> 
+<div class="mb-2"> 
+<label for="firstName" class="form 
+label">First Name</label> 
+<input type="text" class="form control" name="firstName" required 
+id="firstName" aria-describedby="helpId" placeholder="Enter Your First Name"> </div> 
+<div class="mb-2"> 
+<label for="lastName" class="form 
+label">Last Name</label> 
+<input type="text" class="form control" name="lastName" required 
+id="lastName" aria-describedby="helpId" placeholder="Enter Your Last Name"> </div> 
+<div class="mb-2"> 
+<label 
+for="Email Id" class="form-label">Email Address</label> 
+<input 
+type="email" class="form-control" 
+name="email" required id="email" aria describedby="helpId" placeholder="Enter Your Email Address"> 
+</div> 
+<div class="mb-2"> 
+<label for="username" 
+class="form-label">Username</label> <input
+type="text" class="form-control" 
+name="username" required id="username" aria-describedby="helpId" placeholder="Enter Your Username"> 
+</div> 
+<div class="mb-3"> 
+<label 
+for="password" class="form 
+label">Password</label> 
+<input 
+type="password" class="form-control" name="password" required id="password" aria-describedby="helpId" placeholder="Enter Your Password"> 
+</div> 
+<button 
+type="submit" class="btn btn 
+primary">Submit</button> 
+<small class="small 
+text-success" id="msg"></small> 
+</form> 
+</div> 
+<script> 
+function fetchData() { 
+var xhttp = new 
+XMLHttpRequest(); 
+xhttp.onreadystatechange = function() { 
+if 
+(this.readyState == 4 && this.status == 200) { let 
+data = JSON.parse(xhttp.responseText) 
+let 
+string = `First Name: ${data.firstName}<br> Last Name: ${data.lastName}<br>Email: ${data.email} <br>Username: 
+${data.username}`; 
+w = 
+window.open(); 
+w.document.body.innerHTML = 
+"<h1>User Details</h1><h3>"; 
+w.document.body.innerHTML += 
+string; 
+w.document.body.innerHTML += 
+"</h3>"; 
+} 
+}; 
+xhttp.open("GET", 
+"http://localhost:3000/", true); 
+xhttp.send(); 
+} 
+document.body.onload = () => 
+{ 
+fetchData() 
+document.forms.addNumberForm.ad 
+d EventListener("submit", (event) => { 
+event.preventDefault(); 
+const 
+firstName = 
+event.tar 
+get.first 
+Name.va 
+lue; 
+const 
+lastName = event.target.lastName.value; const email = 
+event.target.email.value; 
+const 
+username = 
+event.ta 
+rget.use 
+rname.v 
+alue; 
+const 
+password = event.target.password.value; $("#msg").html("") 
+$.ajax({ 
+type: 
+'post', 
+url: 
+'http://localhost:3000/', 
+data: 
+JSON.stringify({ 
+firstName,lastName, email, username, 
+password 
+}), 
+contentType: "application/json; 
+charset=utf-8", 
+traditional: true, 
+success: function(data) { 
+fetchData(); 
+$("#msg").html("User Details 
+Updated") 
+} 
+});
+}) 
+}; 
+</script> 
+</body> </html> 
+-------------------------------------------------------------------------------------------------------------------------- - Index.js: 
+const express = require("express") 
+app = express(); 
+app.use(express.json()); 
+app.use(function (req, res, next) { 
+res.setHeader('Access-Control-Allow-Origin', '*'); 
+res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); 
+res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); res.setHeader('Access-Control-Allow-Credentials', true); 
+next(); 
+}); 
+var data = { 
+firstName: "", 
+lastName: "", 
+email:"", 
+username:"", 
+password:"" 
+} 
+app.get("/", (req, res) => { 
+res.status(200).json(data); 
+}) 
+app.post("/", (req, res) => { 
+const userData = req.body 
+data = userData; 
+console.log(data) 
+res.status(200).json(data); 
+}); 
+app.listen(3000, () => { 
+console.log("http://localhost:3000") 
+});
+Output:

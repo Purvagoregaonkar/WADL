@@ -1,0 +1,14 @@
+﻿WADL 
+Assignment No : 2B 
+Title: Create Docker Container Environment (NVIDEIA Docker or any other). 
+Steps: 
+1. sudo apt-get install docker.io 
+2.sudo snap install docker 
+
+
+3. sudo docker run hello-world
+
+
+4.sudo docker images 
+5.sudo docker ps -a 
+6.sudo docker ps
